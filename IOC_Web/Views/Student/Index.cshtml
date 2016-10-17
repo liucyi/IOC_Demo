@@ -1,0 +1,18 @@
+﻿@model IEnumerable<IOC_Web.Models.Student>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@foreach (var s in Model)
+{
+    <label>
+        <b>@s.Id</b>
+
+        <b>@s.Name</b>
+        <b>@s.School</b>
+        <b>@s.Graduation</b>
+        <b>@s.Major</b>
+    </label>
+}
+
