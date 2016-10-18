@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace IOC_Web.Models
 {
-    public class StudentService : IStudentService
+    public class StudentService
     {
         IStudentRepository iStudentRepository;
 
@@ -14,9 +15,24 @@ namespace IOC_Web.Models
             this.iStudentRepository = iStudentRepository;
         }
 
+
+
+        public Student Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Student> GetAll(int id)
+        {
+            return iStudentRepository.GetList(c=>c.Id>id);
+         
+        }
+       
         public string GetName(int ID)
         {
-            return iStudentRepository.Get(ID).Name;
+            return iStudentRepository.GetEntity(c => c.Id == ID).Name;
         }
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IOC_Web.Common;
 using IOC_Web.Models;
 
 namespace IOC_Web.Controllers
@@ -10,7 +11,7 @@ namespace IOC_Web.Controllers
     public class StudentController : Controller
     {
          // IStudentRepository repository;
-          IStudentService studentService;
+          StudentService studentService;
         //
         #region 构造器注入
         //public StudentController(IStudentRepository repository)
@@ -37,15 +38,15 @@ namespace IOC_Web.Controllers
         //} 
         #endregion
 
-        public StudentController(IStudentService studentService)
+        public StudentController(StudentService studentService)
         {
             this.studentService = studentService;
         }
         public ActionResult Index()
         {
-          //  var data = repository.GetAll();
-            var data = studentService.GetName(1);
-            return View(data);
+         // var data1 = studentService.GetAll();
+            var data = studentService.GetAll(1)  ;
+            return  View(data);
         }
     }
 }

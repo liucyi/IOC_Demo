@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IOC_Web.Entity;
 
 namespace IOC_Web.Controllers
 {
@@ -10,7 +11,9 @@ namespace IOC_Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            IOC_DbContext db = new IOC_DbContext();
+           var d=  db.Students.ToList();
+            return View(d);
         }
 
         public ActionResult About()

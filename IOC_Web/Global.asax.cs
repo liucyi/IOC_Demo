@@ -10,7 +10,9 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using IOC_Web.Models;
-
+ 
+using Autofac.Configuration;
+using Autofac.Integration.Mvc;
 namespace IOC_Web
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -22,41 +24,55 @@ namespace IOC_Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-var builder = new ContainerBuilder();
-            #region MyRegion1
 
-            SetupResolveRules(builder);
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            var builder = new ContainerBuilder();
+            #region MyRegion1单个注册
+
+            //SetupResolveRules(builder);
+            //builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            //var container = builder.Build();
+            //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            #endregion
+            #region MyRegion2全部注册
+            //// Register your MVC controllers. (MvcApplication is the name of
+            //// the class in Global.asax.)
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+
+            builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(
+               t => t.Name.EndsWith("Repository")).AsImplementedInterfaces();
+
+            //builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(
+            //  t => t.Name.EndsWith("Service")).AsImplementedInterfaces();
+
+            builder.RegisterType<StudentService>();
+
+
+            // OPTIONAL: Register model binders that require DI.
+            builder.RegisterModelBinders(typeof(MvcApplication).Assembly);
+            builder.RegisterModelBinderProvider();
+
+            // OPTIONAL: Register web abstractions like HttpContextBase.
+            builder.RegisterModule<AutofacWebTypesModule>();
+
+            // OPTIONAL: Enable property injection in view pages.
+            builder.RegisterSource(new ViewRegistrationSource());
+
+            // OPTIONAL: Enable property injection into action filters.
+            builder.RegisterFilterProvider();
+
+            // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             #endregion
-            #region MyRegion2
-            //// Register your MVC controllers. (MvcApplication is the name of
-            //// the class in Global.asax.)
-            //builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            //// OPTIONAL: Register model binders that require DI.
-            //builder.RegisterModelBinders(typeof(MvcApplication).Assembly);
-            //builder.RegisterModelBinderProvider();
-
-            //// OPTIONAL: Register web abstractions like HttpContextBase.
-            //builder.RegisterModule<AutofacWebTypesModule>();
-
-            //// OPTIONAL: Enable property injection in view pages.
-            //builder.RegisterSource(new ViewRegistrationSource());
-
-            //// OPTIONAL: Enable property injection into action filters.
-            //builder.RegisterFilterProvider();
-
-            //// Set the dependency resolver to be Autofac.
-            //var container = builder.Build();
-            //DependencyResolver.SetResolver(new AutofacDependencyResolver(container)); 
-            #endregion
+            //automapper注册
+            //   RegisterAutomapper.Excute();
+           // builder.RegisterModule(new Autofac.Configuration.Core.ConfigurationRegistrar("autofac"));
         }
         private void SetupResolveRules(ContainerBuilder builder)
         {
             builder.RegisterType<StudentRepository>().As<IStudentRepository>();
-            builder.RegisterType<StudentService>().As<IStudentService>();
+          
         }
     }
 }

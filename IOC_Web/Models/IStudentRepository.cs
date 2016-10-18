@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
+ 
 
 namespace IOC_Web.Models
 {
-    public interface IStudentRepository
+    public interface IStudentRepository:IBaseRepository<Student>
     {
-        IEnumerable<Student> GetAll();
-        Student Get(int id);
-        Student Add(Student item);
-        bool Update(Student item);
-        bool Delete(int id);
+        
     }
 }
