@@ -7,10 +7,13 @@ namespace IOC_Web.Models
 {
     public class ViewStudents
     {
-        public int Id { get; set; }
+
+        public int id { get; set; }
         public string Name { get; set; }
         public string Graduation { get; set; }
         public string School { get; set; }
         public string Major { get; set; }
+        public string Text { get; set; }
+        public int age { get; set; }
     }
 }

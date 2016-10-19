@@ -19,7 +19,7 @@ namespace IOC_Web.Models
 
         public Student Get(int id)
         {
-            throw new NotImplementedException();
+            return iStudentRepository.GetEntity(c=>c.Id==id);
         }
 
         public IEnumerable<Student> GetAll(int id)

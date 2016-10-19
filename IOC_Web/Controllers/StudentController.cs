@@ -44,8 +44,10 @@ namespace IOC_Web.Controllers
         }
         public ActionResult Index()
         {
-         // var data1 = studentService.GetAll();
-            var data = studentService.GetAll(1)  ;
+            AutoMapperProfileRegister.Register();
+            //   var data = studentService.Get(1).MapTo<ViewStudents>()  ;
+            //  var data = studentService.GetAll(1).MapToList<ViewStudents>() ;
+            var data = studentService.GetAll(1).MapToList<ViewStudents>();
             return  View(data);
         }
     }

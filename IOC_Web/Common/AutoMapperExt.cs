@@ -1,16 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : FairUtility
-// Author           : Yubao Li
-// Created          : 08-27-2015
-//
-// Last Modified By : Yubao Li
-// Last Modified On : 08-27-2015
-// ***********************************************************************
-// <copyright file="AutoMapperExt.cs" company="">
-//     Copyright (c) . All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
+﻿ 
 
 using AutoMapper;
 using System.Collections;
@@ -27,7 +15,7 @@ namespace IOC_Web.Common
         public static T MapTo<T>(this object obj)
         {
             if (obj == null) return default(T);
-            Mapper.Map(obj.GetType(), typeof(T));
+            Mapper.CreateMap(obj.GetType(), typeof(T));
             return Mapper.Map<T>(obj);
         }
 
@@ -39,7 +27,7 @@ namespace IOC_Web.Common
             foreach (var first in source)
             {
                 var type = first.GetType();
-                Mapper.Map(type, typeof(TDestination));
+                Mapper.CreateMap(type, typeof(TDestination));
                 break;
             }
             return Mapper.Map<List<TDestination>>(source);
@@ -51,7 +39,7 @@ namespace IOC_Web.Common
         public static List<TDestination> MapToList<TSource, TDestination>(this IEnumerable<TSource> source)
         {
             //IEnumerable<T> 类型需要创建元素的映射
-            Mapper.Map<TSource, TDestination>();
+            Mapper.CreateMap<TSource, TDestination>();
             return Mapper.Map<List<TDestination>>(source);
         }
 
@@ -73,7 +61,7 @@ namespace IOC_Web.Common
         public static IEnumerable<T> DataReaderMapTo<T>(this IDataReader reader)
         {
             Mapper.Reset();
-            Mapper.Map<IDataReader, IEnumerable<T>>();
+            Mapper.CreateMap<IDataReader, IEnumerable<T>>();
             return Mapper.Map<IDataReader, IEnumerable<T>>(reader);
         }
     }
