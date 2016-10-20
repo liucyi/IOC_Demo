@@ -11,9 +11,8 @@ namespace IOC_Web.Controllers
     {
         public ActionResult Index()
         {
-            IOC_DbContext db = new IOC_DbContext();
-           var d=  db.Students.ToList();
-            return View(d);
+         
+            return View( );
         }
 
         public ActionResult About()

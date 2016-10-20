@@ -9,7 +9,7 @@ namespace IOC_Web.Models
     public class StudentService
     {
         IStudentRepository iStudentRepository;
-
+ 
         public StudentService(IStudentRepository iStudentRepository)
         {
             this.iStudentRepository = iStudentRepository;

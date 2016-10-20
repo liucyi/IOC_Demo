@@ -10,9 +10,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using IOC_Web.Models;
- 
-using Autofac.Configuration;
-using Autofac.Integration.Mvc;
+  
 using IOC_Web.Common;
 
 namespace IOC_Web

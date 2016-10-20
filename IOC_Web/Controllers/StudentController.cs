@@ -47,7 +47,9 @@ namespace IOC_Web.Controllers
             AutoMapperProfileRegister.Register();
             //   var data = studentService.Get(1).MapTo<ViewStudents>()  ;
             //  var data = studentService.GetAll(1).MapToList<ViewStudents>() ;
-            var data = studentService.GetAll(1).MapToList<ViewStudents>();
+            var data = studentService.GetAll(1).MapToList<ViewStudents>().ToJson();
+         var d=   DESEncrypt.Encrypt(data);
+            var n = DESEncrypt.Decrypt(d);
             return  View(data);
         }
     }
