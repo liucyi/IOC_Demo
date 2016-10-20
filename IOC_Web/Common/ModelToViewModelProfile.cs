@@ -12,7 +12,8 @@ namespace IOC_Web.Common
         protected override void Configure()
         {
             Mapper.CreateMap<Student, ViewStudents>()
-                .ForMember(des => des.Text, opt => opt.MapFrom(src => src.School + src.Name));
+                .ForMember(des => des.Text, opt => opt.MapFrom(src => src.School + src.Name))
+                 .ForMember(des => des.id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

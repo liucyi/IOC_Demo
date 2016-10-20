@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/IOC_Web/log/error
+/IOC_Web/log/info

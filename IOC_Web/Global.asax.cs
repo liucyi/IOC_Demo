@@ -13,6 +13,8 @@ using IOC_Web.Models;
  
 using Autofac.Configuration;
 using Autofac.Integration.Mvc;
+using IOC_Web.Common;
+
 namespace IOC_Web
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -41,8 +43,8 @@ namespace IOC_Web
             builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(
                t => t.Name.EndsWith("Repository")).AsImplementedInterfaces();
 
-            //builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(
-            //  t => t.Name.EndsWith("Service")).AsImplementedInterfaces();
+             //builder.RegisterAssemblyTypes(typeof(MvcApplication).Assembly).Where(
+             //  t => t.Name.EndsWith("Service")).AsImplementedInterfaces();
 
             builder.RegisterType<StudentService>();
 
@@ -67,7 +69,15 @@ namespace IOC_Web
 
             //automapper注册
             //   RegisterAutomapper.Excute();
-           // builder.RegisterModule(new Autofac.Configuration.Core.ConfigurationRegistrar("autofac"));
+            // builder.RegisterModule(new Autofac.Configuration.Core.ConfigurationRegistrar("autofac"));
+
+
+
+            LogHelper.Log("启动Web");
+        }
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            LogHelper.Fatal("\r\n客户机IP：" + Request.UserHostAddress + "\r\n 错误地址：" + Request.Url+ Server.GetLastError());
         }
         private void SetupResolveRules(ContainerBuilder builder)
         {
