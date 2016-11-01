@@ -251,7 +251,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\AutoMapperExt.cs" />
     <Compile Include="Common\AutoMapperProfileRegister.cs" />
+    <Compile Include="Common\CacheHelper.cs" />
     <Compile Include="Common\CheckParamTool.cs" />
+    <Compile Include="Common\CNDate.cs" />
     <Compile Include="Common\ConfigurationHelpers.cs" />
     <Compile Include="Common\ControlHelper.cs" />
     <Compile Include="Common\CookieHelper.cs" />
@@ -264,6 +266,7 @@
     <Compile Include="Common\EnumsHelper.cs" />
     <Compile Include="Common\ExcelHelper.cs" />
     <Compile Include="Common\ExtendMethod.cs" />
+    <Compile Include="Common\FileDownTool.cs" />
     <Compile Include="Common\Filter.cs" />
     <Compile Include="Common\GenerateId.cs" />
     <Compile Include="Common\ImageHandle.cs" />
@@ -281,6 +284,9 @@
     <Compile Include="Common\ResultEntity.cs" />
     <Compile Include="Common\SessionHelper.cs" />
     <Compile Include="Common\StringTools.cs" />
+    <Compile Include="Common\UpLoadFilesTool.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Common\ViewModelToModelProfile.cs" />
     <Compile Include="Common\WebServiceRequest.cs" />
     <Compile Include="Controllers\HomeController.cs" />

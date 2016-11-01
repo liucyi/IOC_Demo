@@ -58,5 +58,18 @@ namespace IOC_Web.Common
             }
             return "";
         }
+        /// <summary>  
+        /// 清除指定Cookie  
+        /// </summary>  
+        /// <param name="cookiename">cookiename</param>  
+        public static void ClearCookie(string cookiename)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookiename];
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddYears(-3);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+        }
     }
 }
