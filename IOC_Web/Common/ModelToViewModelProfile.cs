@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using IOC_Web.Models;
+using IOC_Web.Models.ViewModel;
 
 namespace IOC_Web.Common
 {

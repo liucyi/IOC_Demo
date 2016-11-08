@@ -11,6 +11,9 @@ using IOC_Web;
 using IOC_Web.Common;
 using IOC_Web.Controllers;
 using IOC_Web.Models;
+using IOC_Web.Models.ViewModel;
+using IOC_Web.Repository;
+using IOC_Web.Service;
 
 namespace IOC_Web.Tests.Controllers
 {
@@ -29,21 +32,6 @@ namespace IOC_Web.Tests.Controllers
             var n = DESEncrypt.Decrypt(d);
         }
 
-        private void reg()
-        {
-            var builder = new ContainerBuilder();
-
-            SetupResolveRules(builder);
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
-            var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-        }
-        private void SetupResolveRules(ContainerBuilder builder)
-        {
-            builder.RegisterType<StudentRepository>().As<IStudentRepository>();
-
-        }
-
         [TestMethod]
         public void About()
         {
@@ -56,18 +44,7 @@ namespace IOC_Web.Tests.Controllers
             // Assert
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
-        public enum AreaMode
-        {
-            NONE,
-            CITY,
-            TOWN,
-            ROAD,
-            CITYTOWN,
-            TOWNROAD,
-            CITYROAD,
-            ALL
-        }
-
+   
         [TestClass()]
         public class EnumHelperTests
         {
@@ -107,10 +84,36 @@ namespace IOC_Web.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+        private void reg()
+        {
+            var builder = new ContainerBuilder();
+
+            SetupResolveRules(builder);
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+        private void SetupResolveRules(ContainerBuilder builder)
+        {
+            builder.RegisterType<StudentRepository>().As<IStudentRepository>();
+
+        }
+
+        public enum AreaMode
+        {
+            NONE,
+            CITY,
+            TOWN,
+            ROAD,
+            CITYTOWN,
+            TOWNROAD,
+            CITYROAD,
+            ALL
+        }
 
 
     }
 
-    
+
 
 }

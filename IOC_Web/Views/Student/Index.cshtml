@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IOC_Web.Models.ViewStudents>
+﻿@model IEnumerable<IOC_Web.Models.ViewModel.ViewStudents>
 @{
     ViewBag.Title = "Index";
 }
@@ -7,7 +7,7 @@
 @foreach (var s in Model)
 {
     <label>
-        <b>@s.Id</b>
+        <b>@s.id</b>
 
         <b>@s.Name</b>
         <b>@s.School</b>

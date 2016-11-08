@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 
-namespace IOC_Web.Models
+namespace IOC_Web.Repository
 {
     public interface IBaseRepository<T> where T : class
     {

@@ -1,14 +1,15 @@
-﻿ 
+﻿
 
 using System;
 using System.Web;
+using System.Web.Security;
 
 namespace IOC_Web.Common
 {
     /// <summary>
     /// Cookie帮助类
     /// </summary>
-    public class CookieHelper
+    public static class CookieHelper
     {
         /// <summary>
         /// 写cookie值
@@ -70,6 +71,59 @@ namespace IOC_Web.Common
                 cookie.Expires = DateTime.Now.AddYears(-3);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
+        }
+        //利用asp.net中的form验证加密数据，写入Cookie
+        public static HttpCookie WriteAuthCookie(string userData, string userName)
+        {
+
+        
+            //登录票证
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+               1,
+               userName,
+               DateTime.Now,
+               DateTime.Now.AddDays(1),
+               false,
+               userData,
+               FormsAuthentication.FormsCookiePath  //可在webconfig中设置 默认为/
+            );
+
+            string encTicket = FormsAuthentication.Encrypt(ticket);
+
+            if ((encTicket == null) || (encTicket.Length < 1))
+            {
+                throw new HttpException("Unable_to_encrypt_cookie_ticket");
+            }
+
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            cookie.Path = "/";
+            cookie.HttpOnly = true;  //是否可通过脚本访问 设置为true 则不可通过脚本访问
+            cookie.Domain = FormsAuthentication.CookieDomain;  //webconfig中设置的domain
+                                                               //cookie.Secure = FormsAuthentication.RequireSSL;  //当此属性为 true 时，该 Cookie 只能通过 https:// 请求来发送
+
+            //   if (ticket.IsPersistent)     //票证是否持久存储
+            //  {
+            cookie.Expires = ticket.Expiration;
+            //  }
+          
+            HttpContext.Current.Response.AppendCookie(cookie);
+            return cookie;
+
+
+        }
+        /// <summary>
+        /// //获取asp.net中的form验证加密数据
+        /// </summary>
+        /// <param name="strName"></param>
+        /// <returns></returns>
+        public static FormsAuthenticationTicket GetAuthCookie(string strName)
+        {
+            if (HttpContext.Current.Request.Cookies[strName]!=null)
+            {
+                 FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(HttpContext.Current.Request.Cookies[strName].Value);
+            return ticket;
+            }
+            return null;
         }
     }
 }

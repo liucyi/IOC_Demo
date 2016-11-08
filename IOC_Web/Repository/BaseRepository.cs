@@ -9,7 +9,7 @@ using System.Web;
 using IOC_Web.Entity;
 using EntityFramework.Extensions;
 
-namespace IOC_Web.Models
+namespace IOC_Web.Repository
 {
     public abstract class BaseRepository<T> : IBaseRepository<T>, IDisposable where T : class
     {

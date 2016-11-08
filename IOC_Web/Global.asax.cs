@@ -12,6 +12,8 @@ using Autofac.Integration.Mvc;
 using IOC_Web.Models;
   
 using IOC_Web.Common;
+using IOC_Web.Repository;
+using IOC_Web.Service;
 
 namespace IOC_Web
 {

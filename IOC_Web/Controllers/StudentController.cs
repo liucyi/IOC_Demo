@@ -5,13 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using IOC_Web.Common;
 using IOC_Web.Models;
+using IOC_Web.Models.ViewModel;
+using IOC_Web.Service;
 
 namespace IOC_Web.Controllers
 {
     public class StudentController : Controller
     {
-         // IStudentRepository repository;
-          StudentService studentService;
+        // IStudentRepository repository;
+        StudentService studentService;
         //
         #region 构造器注入
         //public StudentController(IStudentRepository repository)
@@ -47,10 +49,12 @@ namespace IOC_Web.Controllers
             AutoMapperProfileRegister.Register();
             //   var data = studentService.Get(1).MapTo<ViewStudents>()  ;
             //  var data = studentService.GetAll(1).MapToList<ViewStudents>() ;
-            var data = studentService.GetAll(1).MapToList<ViewStudents>().ToJson();
-         var d=   DESEncrypt.Encrypt(data);
+            var data = studentService.GetViewStudentsAll(1);
+            var data1 = studentService.GetAll(1);
+            var json = data.ToJson();
+            var d = DESEncrypt.Encrypt(json);
             var n = DESEncrypt.Decrypt(d);
-            return  View(data);
+            return View(json);
         }
     }
 }

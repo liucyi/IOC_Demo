@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using IOC_Web.Common;
 using IOC_Web.Entity;
+using IOC_Web.Models;
 
 namespace IOC_Web.Controllers
 {
@@ -11,13 +14,63 @@ namespace IOC_Web.Controllers
     {
         public ActionResult Index()
         {
+
          
-            return View( );
+ 
+            CookieHelper.WriteCookie("userDate","admin1");
+            wcookie();
+           CookieHelper.WriteAuthCookie("adminData", "Login");
+            return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+
+            var s = CookieHelper.GetCookie("ioc.authcookie");
+         var ticket2= CookieHelper.GetAuthCookie("userInfo1");
+          
+                string[] strInfo = ticket2.UserData.Split(new char[] { '|' });
+                string id = strInfo[0].ToString();
+            //初始化登陆后的数据
+
+
+            //Student user = null;
+
+            //if (HttpContext.User != null
+            //   && HttpContext.User.Identity.IsAuthenticated
+            //   && HttpContext.User.Identity.Name != string.Empty
+            //   && HttpContext.User.Identity.AuthenticationType == "Forms")
+            //{
+            //    FormsIdentity id = HttpContext.User.Identity as FormsIdentity;
+
+            //    if (id != null)
+            //    {
+            //        FormsAuthenticationTicket ticket = id.Ticket;
+
+            //  user =    this.DeserializeUserInfo(ticket.UserData);
+
+            //if (user == null)
+            //{
+            //    return false;
+            //}
+
+            //return true;
+
+            //    }
+            //else
+            //{
+            //    user = default(user);
+
+            //    return false;
+            //}
+            // }
+            //else
+            //{
+            //    user = default(user);
+
+            //    return false;
+            //}
 
             return View();
         }
@@ -28,5 +81,19 @@ namespace IOC_Web.Controllers
 
             return View();
         }
+       
+
+
+        private void wcookie()
+        {
+            string userInfo = "admin" + "|" + "192.168.1.1";
+            FormsAuthenticationTicket ticket =
+                      new FormsAuthenticationTicket(1, "userInfo", DateTime.Now, DateTime.Now.AddDays(1), false, userInfo);
+            String cookieStr = FormsAuthentication.Encrypt(ticket);
+            // Send the cookie to the client 
+            Response.Cookies["userInfo"].Value = cookieStr;
+            Response.Cookies["userInfo"].Path = "/";
+        }
+
     }
 }

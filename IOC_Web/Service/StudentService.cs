@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using IOC_Web.Common;
+using IOC_Web.Models;
+using IOC_Web.Models.ViewModel;
+using IOC_Web.Repository;
 
-namespace IOC_Web.Models
+namespace IOC_Web.Service
 {
     public class StudentService
     {
@@ -24,10 +28,17 @@ namespace IOC_Web.Models
 
         public IEnumerable<Student> GetAll(int id)
         {
-            return iStudentRepository.GetList(c=>c.Id>id);
+            return iStudentRepository.GetList(c=>c.Id>0);
          
         }
-       
+        public List<ViewStudents> GetViewStudentsAll(int id)
+        {
+            string sql = "select*from  Student s left join Student_Course sc on s.id=sc.studentid";
+               return iStudentRepository.SqlQuery(sql).MapToList<ViewStudents>();
+        
+
+
+        }
         public string GetName(int ID)
         {
             return iStudentRepository.GetEntity(c => c.Id == ID).Name;

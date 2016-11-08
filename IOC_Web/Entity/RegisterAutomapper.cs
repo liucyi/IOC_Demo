@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 
-namespace IOC_Web.Models
+namespace IOC_Web.Entity
 {
     public class RegisterAutomapper
     {

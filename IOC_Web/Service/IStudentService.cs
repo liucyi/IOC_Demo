@@ -1,4 +1,4 @@
-﻿namespace IOC_Web.Models
+﻿namespace IOC_Web.Service
 {
     public interface IStudentService
     {

@@ -13,8 +13,8 @@ namespace IOC_Web.Entity
         static IOC_DbContext()
         {
             Database.SetInitializer<IOC_DbContext>(
-             //  new IOC_DbContextInitializer()
-             null
+           new IOC_DbContextInitializer()
+        //  null
               ); //初始化时删除数据库
         }
 
@@ -23,7 +23,9 @@ namespace IOC_Web.Entity
 
         }
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Student> Students { get; set; } 
+        public DbSet<Course> Courses { get; set; }
+       public DbSet<Student_Course> Student_Coursses { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -39,12 +41,40 @@ namespace IOC_Web.Entity
             {
                 var list = new List<Student>
                 {
-                    new Student {Id = 1, Name = "张三", Major = "软件工程", Graduation = "2013年", School = "西安工业大学"},
+                    new Student {Id = 1, Name = "张三", Major = "软件工程",  Graduation = "2013年", School = "西安工业大学"},
                     new Student {Id = 2, Name = "李四", Major = "计算机科学与技术", Graduation = "2013年", School = "西安工业大学"},
                     new Student {Id = 3, Name = "王五", Major = "自动化", Graduation = "2013年", School = "西安工业大学"}
                 };
 
                 list.ForEach(e => context.Students.Add(e));
+                context.SaveChanges();
+
+
+
+                var list1 = new List<Course>()
+                {
+                    new Course() { Name = "数据库原理"},
+                       new Course() { Name = "计算机原理"},
+                          new Course() { Name = "数据库结构"},
+                             new Course() { Name = "数据库优化学习"},
+                                new Course() { Name = "C++入门"},
+                                  new Course() { Name = "Asp.net 2.0"},
+                                    new Course() { Name = "VB入门"},
+                                   new Course() { Name = "电气自动化"}
+                };
+                list1.ForEach(e => context.Courses.Add(e));
+                context.SaveChanges();
+                var list2 = new List<Student_Course>()
+                {
+                    new Student_Course() { StudentId  = 1,CourseId = 1,CourseName = "数据库原理"},
+                       new Student_Course(){ StudentId  = 1,CourseId = 2,CourseName = "计算机原理" },
+                          new Student_Course() { StudentId  = 1,CourseId = 4,CourseName = "数据库优化学习"},
+                             new Student_Course() { StudentId  = 2,CourseId = 2,CourseName = "计算机原理"},
+                                new Student_Course() { StudentId  = 2,CourseId = 1,CourseName = "数据库原理"},
+                                   new Student_Course() { StudentId  = 3,CourseId = 1,CourseName = "数据库原理"},
+                             new Student_Course() { StudentId  = 3,CourseId = 8,CourseName ="电气自动化" },
+                };
+                list2.ForEach(e => context.Student_Coursses.Add(e));
                 context.SaveChanges();
             }
 
