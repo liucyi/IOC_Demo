@@ -33,16 +33,24 @@ namespace IOC_Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void About()
+        public void linq_group()
         {
-            // Arrange
-            HomeController controller = new HomeController();
+            StudentService studentService = new StudentService(new StudentRepository());
+            var s = studentService.GetAll(1);
+          var r =  s.GroupBy(c => c.School).Select(group => new
+            {
+                 group.Key,
+                count = group.Count()
+            });
+            var w = from a in s
+                group a by a.School
+                into g
+                select new
+                {
+                    g.Key,
+                    count=g.Count()
+                };
 
-            // Act
-            ViewResult result = controller.About() as ViewResult;
-
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
    
         [TestClass()]

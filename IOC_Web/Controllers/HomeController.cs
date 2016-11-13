@@ -17,8 +17,8 @@ namespace IOC_Web.Controllers
 
          
  
-            CookieHelper.WriteCookie("userDate","admin1");
-            wcookie();
+            //CookieHelper.WriteCookie("userDate","admin1");
+            //wcookie();
            CookieHelper.WriteAuthCookie("adminData", "Login");
             return View();
         }
@@ -27,52 +27,33 @@ namespace IOC_Web.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            var s = CookieHelper.GetCookie("ioc.authcookie");
-         var ticket2= CookieHelper.GetAuthCookie("userInfo1");
-          
-                string[] strInfo = ticket2.UserData.Split(new char[] { '|' });
-                string id = strInfo[0].ToString();
+            var s = CookieHelper.GetCookie("Login");
+            var ticket2 = CookieHelper.GetAuthCookie("ioc.authcookie");
+
+            //string[] strInfo = ticket2.UserData.Split(new char[] {'|'});
+            //string id1 = strInfo[0].ToString();
             //初始化登陆后的数据
 
 
-            //Student user = null;
+            Student user = null;
 
-            //if (HttpContext.User != null
-            //   && HttpContext.User.Identity.IsAuthenticated
-            //   && HttpContext.User.Identity.Name != string.Empty
-            //   && HttpContext.User.Identity.AuthenticationType == "Forms")
-            //{
-            //    FormsIdentity id = HttpContext.User.Identity as FormsIdentity;
+            if (HttpContext.User != null
+                && HttpContext.User.Identity.IsAuthenticated
+                && HttpContext.User.Identity.Name != string.Empty
+                && HttpContext.User.Identity.AuthenticationType == "Forms")
+            {
+                FormsIdentity id = HttpContext.User.Identity as FormsIdentity;
 
-            //    if (id != null)
-            //    {
-            //        FormsAuthenticationTicket ticket = id.Ticket;
+                if (id != null)
+                {
+                    FormsAuthenticationTicket ticket = id.Ticket;
 
-            //  user =    this.DeserializeUserInfo(ticket.UserData);
+                   // user = this.DeserializeUserInfo(ticket.UserData);
 
-            //if (user == null)
-            //{
-            //    return false;
-            //}
+                }
 
-            //return true;
-
-            //    }
-            //else
-            //{
-            //    user = default(user);
-
-            //    return false;
-            //}
-            // }
-            //else
-            //{
-            //    user = default(user);
-
-            //    return false;
-            //}
-
-            return View();
+               
+            } return View();
         }
 
         public ActionResult Contact()

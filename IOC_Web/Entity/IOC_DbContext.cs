@@ -13,8 +13,8 @@ namespace IOC_Web.Entity
         static IOC_DbContext()
         {
             Database.SetInitializer<IOC_DbContext>(
-           new IOC_DbContextInitializer()
-        //  null
+        //  new IOC_DbContextInitializer()
+        null
               ); //初始化时删除数据库
         }
 
@@ -42,8 +42,10 @@ namespace IOC_Web.Entity
                 var list = new List<Student>
                 {
                     new Student {Id = 1, Name = "张三", Major = "软件工程",  Graduation = "2013年", School = "西安工业大学"},
-                    new Student {Id = 2, Name = "李四", Major = "计算机科学与技术", Graduation = "2013年", School = "西安工业大学"},
-                    new Student {Id = 3, Name = "王五", Major = "自动化", Graduation = "2013年", School = "西安工业大学"}
+                      new Student {Id = 11, Name = "FDS", Major = "软件工程",  Graduation = "2013年", School = "西安大学"},
+                        new Student {Id = 12, Name = "df", Major = "软件工程",  Graduation = "2013年", School = "西安工业大学"},
+                    new Student {Id = 2, Name = "李四", Major = "计算机科学与技术", Graduation = "2013年", School = "重庆大学"},
+                    new Student {Id = 3, Name = "王五", Major = "自动化", Graduation = "2013年", School = "北京大学"}
                 };
 
                 list.ForEach(e => context.Students.Add(e));
