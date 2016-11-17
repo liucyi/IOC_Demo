@@ -14,14 +14,14 @@ using NPOI.SS.Util;
 
 namespace IOC_Web.Common
 {
-    public class ExcelHelper
+    public static class ExcelHelper
     {
         
 
      
     }
 
-    public class NPOI
+    public static class NPOIHelper
     {
         #region NPOI
         /// <summary>

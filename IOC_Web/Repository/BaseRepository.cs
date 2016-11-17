@@ -32,6 +32,7 @@ namespace IOC_Web.Repository
         {
            
             context.Set<T>().Add(entity);
+            SaveChanges();
         }
 
         public virtual void Update(T entity)

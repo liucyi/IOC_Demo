@@ -13,7 +13,7 @@ namespace IOC_Web.Service
     public class StudentService
     {
         IStudentRepository iStudentRepository;
- 
+
         public StudentService(IStudentRepository iStudentRepository)
         {
             this.iStudentRepository = iStudentRepository;
@@ -23,19 +23,19 @@ namespace IOC_Web.Service
 
         public Student Get(int id)
         {
-            return iStudentRepository.GetEntity(c=>c.Id==id);
+            return iStudentRepository.GetEntity(c => c.Id == id);
         }
 
         public IEnumerable<Student> GetAll(int id)
         {
-            return iStudentRepository.GetList(c=>c.Id>0);
-         
+            return iStudentRepository.GetList(c => c.Id > 0);
+
         }
         public List<ViewStudents> GetViewStudentsAll(int id)
         {
             string sql = "select*from  Student s left join Student_Course sc on s.id=sc.studentid";
-               return iStudentRepository.SqlQuery(sql).MapToList<ViewStudents>();
-        
+            return iStudentRepository.SqlQuery(sql).MapToList<ViewStudents>();
+
 
 
         }
@@ -44,6 +44,15 @@ namespace IOC_Web.Service
             return iStudentRepository.GetEntity(c => c.Id == ID).Name;
         }
 
+        public void Add(Student student)
+        {
+            iStudentRepository.Insert(student);
 
+        }
+
+        public void Delete(Expression<Func<Student, bool>> exp)
+        {
+            iStudentRepository.Delete(exp);
+        }
     }
 }

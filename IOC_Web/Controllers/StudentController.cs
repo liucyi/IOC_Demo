@@ -13,7 +13,7 @@ namespace IOC_Web.Controllers
     public class StudentController : Controller
     {
         // IStudentRepository repository;
-        StudentService studentService;
+
         //
         #region 构造器注入
         //public StudentController(IStudentRepository repository)
@@ -39,7 +39,7 @@ namespace IOC_Web.Controllers
         //    set { this.repository = value; }
         //} 
         #endregion
-
+        StudentService studentService;
         public StudentController(StudentService studentService)
         {
             this.studentService = studentService;
