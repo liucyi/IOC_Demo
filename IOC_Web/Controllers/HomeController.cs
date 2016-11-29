@@ -17,7 +17,10 @@ namespace IOC_Web.Controllers
         public ActionResult Index()
         {
 
-
+         LogHelper.Log("pppp");
+            LogHelper.Debug("DDD");
+            LogHelper.Fatal("ffff");
+            LogHelper.Warn("wwww");
             studentService.Delete(c => c.Id == 6);
             //CookieHelper.WriteCookie("userDate","admin1");
             //wcookie();
@@ -77,30 +80,10 @@ namespace IOC_Web.Controllers
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
 
-          
+            int n = 0;
             var task = Task.Factory.StartNew(() =>
             {
-                for (int i = 0; i < table.Rows.Count; i++)
-                {
-                    Student student = new Student();
-                    student.Id = i;
-                    student.Graduation = table.Rows[i]["Graduation"].ToString();
-                    student.Major = table.Rows[i]["Major"].ToString();
-                    student.Name = table.Rows[i]["Name"].ToString();
-                    student.School = table.Rows[i]["School"].ToString();
-
-                    using (IOC_DbContext db = new IOC_DbContext())
-                    {
-                        db.Students.Add(student);
-                        db.SaveChangesAsync();
-                    }
-                    
-
-                }
-            });
-            var task1 = Task.Factory.StartNew(() =>
-            {
-                for (int i = 500; i < 500 * 2; i++)
+                for (int i = 0; i < table.Rows.Count / 4; i++)
                 {
                     Student student = new Student();
                     student.Id = i;
@@ -113,13 +96,35 @@ namespace IOC_Web.Controllers
                     {
                         db.Students.Add(student);
                         db.SaveChanges();
+                        LogHelper.Log("线程1："+i + "添加成功--"+n++);
+                    }
+
+
+                }
+            });
+            var task1 = Task.Factory.StartNew(() =>
+            {
+                for (int i = table.Rows.Count / 4; i < table.Rows.Count / 4 * 2; i++)
+                {
+                    Student student = new Student();
+                    student.Id = i;
+                    student.Graduation = table.Rows[i]["Graduation"].ToString();
+                    student.Major = table.Rows[i]["Major"].ToString();
+                    student.Name = table.Rows[i]["Name"].ToString();
+                    student.School = table.Rows[i]["School"].ToString();
+
+                    using (IOC_DbContext db = new IOC_DbContext())
+                    {
+                        db.Students.Add(student);
+                        db.SaveChanges();
+                        LogHelper.Log("线程2：" + i + "添加成功--" + n++);
                     }
 
                 }
             });
             var task2 = Task.Factory.StartNew(() =>
             {
-                for (int i = 500 * 2; i < 500 * 3; i++)
+                for (int i = table.Rows.Count / 4 * 2; i < table.Rows.Count / 4 * 3; i++)
                 {
                     Student student = new Student();
                     student.Id = i;
@@ -132,13 +137,14 @@ namespace IOC_Web.Controllers
                     {
                         db.Students.Add(student);
                         db.SaveChanges();
+                        LogHelper.Log("线程3：" + i + "添加成功--" + n++);
                     }
 
                 }
             });
             var task3 = Task.Factory.StartNew(() =>
              {
-                 for (int i = 500 * 3; i < table.Rows.Count; i++)
+                 for (int i = table.Rows.Count / 4 * 3; i < table.Rows.Count; i++)
                  {
                      Student student = new Student();
                      student.Id = i;
@@ -151,6 +157,7 @@ namespace IOC_Web.Controllers
                      {
                          db.Students.Add(student);
                          db.SaveChanges();
+                         LogHelper.Log("线程4：" + i + "添加成功--" + n++);
                      }
 
                  }
