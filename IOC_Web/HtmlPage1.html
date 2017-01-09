@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/select2/select2.min.js"></script>
+
+    <script src="Scripts/select2/mod.udatas.js"></script>
+    <script src="Scripts/select2/zh-CN.js"></script>
+    <link href="Scripts/select2/select2.css" rel="stylesheet" />
+    <style>
+        
+    </style>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#d").select2({ minimumResultsForSearch: -1 });
+            $("#e").select2({
+                language: "zh-CN",
+                matcher: function (term, text) {
+                    var mod = ZhToPinyin(text);
+                    var tf1 = mod.a.toUpperCase().indexOf(term.toUpperCase()) == 0;
+                    var tf2 = mod.b.toUpperCase().indexOf(term.toUpperCase()) == 0;
+                    return (tf1 || tf2);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div style="margin: 10px">
+        <select class="js-example-basic-single" id="d">
+            <option value="也该写篇文章总结总结">也该写篇文章总结总结</option>
+
+            <option value="以及无限滚动等功能">以及无限滚动等功能</option>
+        </select>
+
+        <select  id="e">
+            <option value="也该写篇文章总结总结">也该写篇文章总结总结</option>
+
+            <option value="以及无限滚动等功能">以及无限滚动等功能</option>
+        </select>
+    </div>
+</body>
+</html>
+matcher: function(term, text) {
+//by cst 2015年6月11日 14:38:29 添加拼音匹配
+if (text.toPinYin != undefined) 
+return text.toPinYin().indexOf(term.toUpperCase()) >= 0?true:text.toUpperCase().indexOf(term.toUpperCase()) >= 0;                  return text.toUpperCase().indexOf(term.toUpperCase()) >= 0;          }

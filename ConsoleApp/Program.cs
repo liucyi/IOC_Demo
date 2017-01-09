@@ -185,99 +185,99 @@ namespace ConsoleApp
             Console.WriteLine("LookUp group by time is: " + stopWatch.ElapsedMilliseconds);
         }
 
-        public static void Insert()
-        {
-            var path = Server.MapPath("/Upload/1.xlsx");
-            var table = NPOIHelper.ExcelToDataTable(path);
-            var sw = new System.Diagnostics.Stopwatch();
-            sw.Start();
+        //public static void Insert()
+        //{
+        //    var path = Server.MapPath("/Upload/1.xlsx");
+        //    var table = NPOIHelper.ExcelToDataTable(path);
+        //    var sw = new System.Diagnostics.Stopwatch();
+        //    sw.Start();
 
 
-            var task = Task.Factory.StartNew(() =>
-            {
-                for (int i = 0; i < table.Rows.Count / 4; i++)
-                {
-                    Student student = new Student();
-                    student.Id = i;
-                    student.Graduation = table.Rows[i]["Graduation"].ToString();
-                    student.Major = table.Rows[i]["Major"].ToString();
-                    student.Name = table.Rows[i]["Name"].ToString();
-                    student.School = table.Rows[i]["School"].ToString();
+        //    var task = Task.Factory.StartNew(() =>
+        //    {
+        //        for (int i = 0; i < table.Rows.Count / 4; i++)
+        //        {
+        //            Student student = new Student();
+        //            student.Id = i;
+        //            student.Graduation = table.Rows[i]["Graduation"].ToString();
+        //            student.Major = table.Rows[i]["Major"].ToString();
+        //            student.Name = table.Rows[i]["Name"].ToString();
+        //            student.School = table.Rows[i]["School"].ToString();
 
-                    using (IOC_DbContext db = new IOC_DbContext())
-                    {
-                        db.Students.Add(student);
-                        db.SaveChangesAsync();
-                        LogHelper.Log(i + "添加成功");
-                    }
+        //            using (IOC_DbContext db = new IOC_DbContext())
+        //            {
+        //                db.Students.Add(student);
+        //                db.SaveChangesAsync();
+        //                LogHelper.Log(i + "添加成功");
+        //            }
 
 
-                }
-            });
-            var task1 = Task.Factory.StartNew(() =>
-            {
-                for (int i = table.Rows.Count / 4; i < table.Rows.Count / 4 * 2; i++)
-                {
-                    Student student = new Student();
-                    student.Id = i;
-                    student.Graduation = table.Rows[i]["Graduation"].ToString();
-                    student.Major = table.Rows[i]["Major"].ToString();
-                    student.Name = table.Rows[i]["Name"].ToString();
-                    student.School = table.Rows[i]["School"].ToString();
+        //        }
+        //    });
+        //    var task1 = Task.Factory.StartNew(() =>
+        //    {
+        //        for (int i = table.Rows.Count / 4; i < table.Rows.Count / 4 * 2; i++)
+        //        {
+        //            Student student = new Student();
+        //            student.Id = i;
+        //            student.Graduation = table.Rows[i]["Graduation"].ToString();
+        //            student.Major = table.Rows[i]["Major"].ToString();
+        //            student.Name = table.Rows[i]["Name"].ToString();
+        //            student.School = table.Rows[i]["School"].ToString();
 
-                    using (IOC_DbContext db = new IOC_DbContext())
-                    {
-                        db.Students.Add(student);
-                        db.SaveChanges();
-                        LogHelper.Log(i + "添加成功");
-                    }
+        //            using (IOC_DbContext db = new IOC_DbContext())
+        //            {
+        //                db.Students.Add(student);
+        //                db.SaveChanges();
+        //                LogHelper.Log(i + "添加成功");
+        //            }
 
-                }
-            });
-            var task2 = Task.Factory.StartNew(() =>
-            {
-                for (int i = table.Rows.Count / 4 * 2; i < table.Rows.Count / 4 * 3; i++)
-                {
-                    Student student = new Student();
-                    student.Id = i;
-                    student.Graduation = table.Rows[i]["Graduation"].ToString();
-                    student.Major = table.Rows[i]["Major"].ToString();
-                    student.Name = table.Rows[i]["Name"].ToString();
-                    student.School = table.Rows[i]["School"].ToString();
+        //        }
+        //    });
+        //    var task2 = Task.Factory.StartNew(() =>
+        //    {
+        //        for (int i = table.Rows.Count / 4 * 2; i < table.Rows.Count / 4 * 3; i++)
+        //        {
+        //            Student student = new Student();
+        //            student.Id = i;
+        //            student.Graduation = table.Rows[i]["Graduation"].ToString();
+        //            student.Major = table.Rows[i]["Major"].ToString();
+        //            student.Name = table.Rows[i]["Name"].ToString();
+        //            student.School = table.Rows[i]["School"].ToString();
 
-                    using (IOC_DbContext db = new IOC_DbContext())
-                    {
-                        db.Students.Add(student);
-                        db.SaveChanges();
-                        LogHelper.Log(i + "添加成功");
-                    }
+        //            using (IOC_DbContext db = new IOC_DbContext())
+        //            {
+        //                db.Students.Add(student);
+        //                db.SaveChanges();
+        //                LogHelper.Log(i + "添加成功");
+        //            }
 
-                }
-            });
-            var task3 = Task.Factory.StartNew(() =>
-            {
-                for (int i = table.Rows.Count / 4 * 3; i < table.Rows.Count; i++)
-                {
-                    Student student = new Student();
-                    student.Id = i;
-                    student.Graduation = table.Rows[i]["Graduation"].ToString();
-                    student.Major = table.Rows[i]["Major"].ToString();
-                    student.Name = table.Rows[i]["Name"].ToString();
-                    student.School = table.Rows[i]["School"].ToString();
+        //        }
+        //    });
+        //    var task3 = Task.Factory.StartNew(() =>
+        //    {
+        //        for (int i = table.Rows.Count / 4 * 3; i < table.Rows.Count; i++)
+        //        {
+        //            Student student = new Student();
+        //            student.Id = i;
+        //            student.Graduation = table.Rows[i]["Graduation"].ToString();
+        //            student.Major = table.Rows[i]["Major"].ToString();
+        //            student.Name = table.Rows[i]["Name"].ToString();
+        //            student.School = table.Rows[i]["School"].ToString();
 
-                    using (IOC_DbContext db = new IOC_DbContext())
-                    {
-                        db.Students.Add(student);
-                        db.SaveChanges();
-                        LogHelper.Log(i + "添加成功");
-                    }
+        //            using (IOC_DbContext db = new IOC_DbContext())
+        //            {
+        //                db.Students.Add(student);
+        //                db.SaveChanges();
+        //                LogHelper.Log(i + "添加成功");
+        //            }
 
-                }
-            });
+        //        }
+        //    });
 
-            sw.Stop();
-            var time = sw.ElapsedMilliseconds;
-        }
+        //    sw.Stop();
+        //    var time = sw.ElapsedMilliseconds;
+        //}
     }
 
     public class Custom

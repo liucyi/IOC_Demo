@@ -54,7 +54,7 @@ namespace IOC_Web.Controllers
             var json = data.ToJson();
             var d = DESEncrypt.Encrypt(json);
             var n = DESEncrypt.Decrypt(d);
-            return View(json);
+            return View(data);
         }
     }
 }
